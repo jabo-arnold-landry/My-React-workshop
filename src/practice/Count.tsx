@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState, type FC } from "react";
+import { useEffect, useRef, useState } from "react";
 
-function Count(){
+function Count() {
   const [count, setCount] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
   const prevValue = useRef(0);
-  let timerID = useRef<NodeJS.Timeout>();
+  let timerID = useRef(0);
 
   useEffect(() => {
     timerID.current = setInterval(() => {
