@@ -4,7 +4,6 @@ import type { DestinationData } from "../types";
 
 function CounterDisplay1() {
   const { data } = useContext(CountryData);
-  console.log(data);
   return (
     <>
       {data.map((element: DestinationData, index: number) => {
