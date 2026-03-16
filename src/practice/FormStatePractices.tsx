@@ -1,11 +1,13 @@
 import { type FormEvent, useState } from "react";
 import { useFormStatus } from "react-dom";
+import Input from "../components/Input";
+import Form from "../components/Form";
+import Button from "../components/Button";
 
 function FormStatePractices() {
   const [todos, setTodos] = useState<Record<string, string>[]>([]);
 
   async function onSubmit(data: FormEvent) {
-
     const names = data.get("names");
     const newNames = await createNames(names);
     setTodos((prev) => [...prev, newNames]);
@@ -25,10 +27,10 @@ function FormStatePractices() {
 
   return (
     <>
-      <form action={onSubmit} method="post">
-        <input type="text" name="names" />
+      <Form action={onSubmit} method="post">
+        <Input type="text" name="names" />
         <SubmitBtn />
-      </form>
+      </Form>
       {todos.map((todo, index) => {
         const { name } = todo;
         return <h4 key={index}>{name}</h4>;
@@ -41,7 +43,7 @@ function SubmitBtn() {
   const data = useFormStatus();
   let isLoading = data.pending;
   return (
-    <button disabled={isLoading}>{isLoading ? "loading...." : "submit"}</button>
+    <Button disabled={isLoading}>{isLoading ? "loading...." : "submit"}</Button>
   );
 }
 
