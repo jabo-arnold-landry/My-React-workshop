@@ -9,15 +9,19 @@ export interface TodoList {
 }
 
 export interface DestinationData {
-  id: number,
-    img: {
-      src: string,
-      alt: string
-    },
-    title: string
-    country: string,
-    googleMapsLink: string,
-    dates: string,
-    text: string,
-  
+  id: number;
+  img: {
+    src: string;
+    alt: string;
+  };
+  title: string;
+  country: string;
+  googleMapsLink: string;
+  dates: string;
+  text: string;
+}
+
+export interface ReducerTypes {
+  type: string;
+  playload: Record<string, unknown>;
 }
