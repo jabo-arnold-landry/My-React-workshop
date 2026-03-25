@@ -22,7 +22,6 @@ function Todos() {
         if (err instanceof Error && err.name !== "AbortError") {
           setWeHaveErr(true);
         }
-        throw new Error("something bad happened", err!);
       }
     };
 
