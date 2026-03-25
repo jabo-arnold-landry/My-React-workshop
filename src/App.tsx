@@ -1,18 +1,15 @@
-import { Routes, Route, Link } from "react-router-dom";
-import Popup from "./practice/Popup";
 import Todos from "./practice/Todos";
+import TestErrorBound from "./practice/TestErrorBound";
+import ErrorBoundary from "./practice/ErrorBoundary";
 
 function App() {
   return (
     <>
-      <Link to="/">Home</Link>
-      
-      <Link to="/popup">Pop</Link>
-      <Routes>
-        <Route path="/" element={<Todos />} />
-
-        <Route path="/popup" element={<Popup />} />
-      </Routes>
+      <TestErrorBound heroName="landry" />
+      <TestErrorBound heroName="jabo" />
+      <ErrorBoundary fallback={<p>fuck you</p>}>
+        <Todos />
+      </ErrorBoundary>
     </>
   );
 }
