@@ -5,17 +5,25 @@ import fetchingData from "../API/gettingTestingData";
 function Todos() {
   const [todos, setTodos] = useState<TodoList[]>([]);
   const [pending, startTransition] = useTransition();
+  const [weHaveErr, setWeHaveErr] = useState<boolean>(false);
 
   useEffect(() => {
     const controller = new AbortController();
     const todos = async () => {
-      const todoList: TodoList[] = await fetchingData(
-        "http://localhost:3000/dummy/userTodos",
-        controller,
-      );
-      startTransition(() => {
-        setTodos((prev) => [...prev, ...todoList]);
-      });
+      try {
+        const todoList: TodoList[] = await fetchingData(
+          "http://localhost:3000/dummy/userTodos",
+          controller,
+        );
+        startTransition(() => {
+          setTodos((prev) => [...prev, ...todoList]);
+        });
+      } catch (err) {
+        if (err instanceof Error && err.name !== "AbortError") {
+          setWeHaveErr(true);
+        }
+        throw new Error("something bad happened", err!);
+      }
     };
 
     todos();
@@ -25,7 +33,7 @@ function Todos() {
       controller.abort();
     };
   }, []);
-
+  if (weHaveErr) throw new Error("failed to get resources");
   return (
     <>
       <p>{pending && "loading..."}</p>
