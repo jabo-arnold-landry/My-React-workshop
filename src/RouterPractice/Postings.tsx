@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom";
+import postings from "../postingsdata";
+
 function Postings() {
   return (
     <>
-      <h1>Postings Page</h1>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-        dolores iste perspiciatis dolorum optio veniam odio recusandae corporis,
-        consequuntur repellendus, obcaecati minima vitae velit rem! Dicta
-        incidunt consequuntur molestiae architecto atque, nostrum dolore aperiam
-        recusandae impedit qui et dignissimos accusamus, iste quibusdam
-        repudiandae. Distinctio, similique.
-      </p>
+      {postings.map((post) => {
+        return (
+          <Link to={`${post.id}`} key={post.id}>
+            <h2>{post.name}</h2>
+            <p>{post.daily}</p>
+          </Link>
+        );
+      })}
     </>
   );
 }
