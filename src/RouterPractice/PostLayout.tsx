@@ -1,6 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 function PostLayout() {
+  const user = true;
   return (
     <>
       <h1>Postings Page</h1>
@@ -9,7 +10,11 @@ function PostLayout() {
         recusandae.
       </p>
 
-      <Outlet />
+      {user ? (
+        <Outlet />
+      ) : (
+        <Navigate to="/" replace={true} state={{ from: location.pathname }} />
+      )}
     </>
   );
 }
