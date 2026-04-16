@@ -9,6 +9,8 @@ const About = lazy(() => import("./RouterPractice/About"));
 const Postings = lazy(() => import("./RouterPractice/Postings"));
 const PostLayout = lazy(() => import("./RouterPractice/PostLayout"));
 const Post = lazy(() => import("./RouterPractice/Post"));
+const Profile = lazy(() => import("./RouterPractice/Profile"));
+const AccData = lazy(() => import("./RouterPractice/AccData"));
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/about">About</NavLink>
         <NavLink to="/postings">Postings</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
       </div>
       <Routes>
         <Route index element={<Home />} />
@@ -28,6 +31,9 @@ function App() {
             errorElement={<RouterErrorBoundary />}
             element={<Post />}
           />
+        </Route>
+        <Route path="profile" element={<Profile />}>
+          <Route index element={<AccData />} />
         </Route>
       </Routes>
     </>
