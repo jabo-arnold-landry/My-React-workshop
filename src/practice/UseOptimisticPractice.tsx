@@ -1,4 +1,4 @@
-import { useOptimistic, useState, useTransition } from "react";
+import { useActionState, useOptimistic, useState, useTransition } from "react";
 const todos = ["hello", "john", "doe"];
 
 function UseOptimisticPractice() {
@@ -6,44 +6,27 @@ function UseOptimisticPractice() {
   const [text, setText] = useState("");
   const [optimisticTodo, setOptimistic] = useOptimistic(lists);
   const [isLoading, startTransition] = useTransition();
+  const [data, action, isPending] = useActionState(addTodos, undefined);
 
-  function addTodos(text: string) {
-    setOptimistic((prev) => [...prev, `${text}-op`]);
+  function addTodos(data, formData: FormData) {
+    console.log(data);
+    const text = formData.get("todo") as string;
+    setOptimistic((prev) => [...prev, `${text}`]);
 
-    return new Promise<void>((reject) => {
+    return new Promise<void>((resolve) => {
       setTimeout(() => {
-        reject();
-
-        // setLists((prev) => [...prev, text]);
+        setLists((prev) => [...prev, text]);
+        resolve();
       }, 3000);
-    });
+    })
   }
 
   return (
     <>
-      <div>
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.currentTarget.value)}
-          disabled={isLoading}
-        />
-        <button
-          onClick={() => {
-            startTransition(async () => {
-              try {
-                await addTodos(text);
-                // setText("");
-              } catch {
-                setText(text);
-                setOptimistic(lists);
-              }
-            });
-          }}
-        >
-          Add todo
-        </button>
-      </div>
+      <form action={action}>
+        <input type="text" name="todo" disabled={isPending} />
+        <button>Add todo</button>
+      </form>
       <main>
         {optimisticTodo.map((task, index) => (
           <p key={index}>{task}</p>
