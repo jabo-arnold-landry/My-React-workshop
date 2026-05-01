@@ -9,11 +9,18 @@ export const apiCreated = createApi({
 
   endpoints: (builder) => {
     return {
-      getUsers: builder.query<any[] , void>({
+      getUsers: builder.query<any[], void>({
         query: () => "/users",
+      }),
+      setUsers: builder.mutation<any[], { names: string }>({
+        query: (user) => ({
+          url: "newuser",
+          method: "POST",
+          body: user,
+        }),
       }),
     };
   },
 });
 
-export const { useGetUsersQuery } = apiCreated;
+export const { useGetUsersQuery,useSetUsersMutation } = apiCreated;
