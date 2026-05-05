@@ -1,26 +1,22 @@
-// import { Counter } from "../context/Counter";
-import { type RooteState, type DispatchType } from "./store/counterStore";
 import { increment, incrementByAction } from "./slices/counterSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { useActionState } from "react";
 import { addLocation } from "./slices/userSlice";
+import { dispatchApp, useSelectorApp } from "./hooks/hook";
 
 function Something() {
-  const [data, action, isLoading] = useActionState(updateinfo, null)
-  function updateinfo(data, formData:FormData){
-    console.log(data)
-    const city = formData.get("city") as string
-    const district = formData.get("district") as string
-    dispatch(addLocation({city, district}))
+  const [data, action, isLoading] = useActionState(updateinfo, null);
+
+  function updateinfo(data, formData: FormData) {
+    console.log(data);
+    const city = formData.get("city") as string;
+    const district = formData.get("district") as string;
+    dispatch(addLocation({ city, district }));
   }
-  const dispatch = useDispatch<DispatchType>();
-  const userData = useSelector<RooteState>((state) => state.user) as Record<
-    string,
-    string
-  >;
+  const dispatch = dispatchApp();
+  const userData = useSelectorApp((state) => state.user)
 
   console.log("rendered");
-  console.log(userData)
+  console.log(userData);
   return (
     <>
       <div>
