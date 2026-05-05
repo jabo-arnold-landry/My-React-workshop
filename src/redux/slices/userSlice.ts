@@ -1,8 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const initialData: Record<string, unknown> = {
+const initialData = {
   names: "jabo",
   email: "arnoldjabo@gmail.com",
+  location: {
+    city: "",
+    district: "",
+  },
 };
 const userSlice = createSlice({
   name: "userdata",
