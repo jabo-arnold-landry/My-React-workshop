@@ -13,7 +13,10 @@ export interface BtnProps
 
 function Button({ children, className, variant, size, ...props }: BtnProps) {
   return (
-    <button {...props} className={clsx(twMerge(buttonVariants({variant, size, className})))}>
+    <button
+      {...props}
+      className={clsx(twMerge(buttonVariants({ variant, size, className })))}
+    >
       {children}
     </button>
   );
